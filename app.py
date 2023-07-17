@@ -104,7 +104,7 @@ def predict(input,
 with open("assets/custom.css", "r", encoding="utf-8") as f:
     customCSS = f.read()
 with gr.Blocks(css=customCSS, theme=small_and_beautiful_theme) as demo:
-    gr.Markdown("""<h1><center>Chinese-LangChain</center></h1>
+    gr.Markdown("""<h1><center>Knowledge Fusing Reference Architecutre for Finance</center></h1>
         <center><font size=3>
         </center></font>
         """)
@@ -159,16 +159,16 @@ with gr.Blocks(css=customCSS, theme=small_and_beautiful_theme) as demo:
 
         with gr.Column(scale=4):
             with gr.Row():
-                chatbot = gr.Chatbot(label='Chinese-LangChain').style(height=400)
+                chatbot = gr.Chatbot(label='KFRA for Fin').style(height=400)
             with gr.Row():
-                message = gr.Textbox(label='请输入问题')
+                message = gr.Textbox(label='我是金融增强的小话术Copilot，请输入问题')
             with gr.Row():
-                clear_history = gr.Button("🧹 清除历史对话")
-                send = gr.Button("🚀 发送")
+                clear_history = gr.Button("清除历史对话")
+                send = gr.Button("发送")
             with gr.Row():
                 gr.Markdown("""提醒：<br>
-                                        [Chinese-LangChain](https://github.com/yanqiangmiffy/Chinese-LangChain) <br>
-                                        有任何使用问题[Github Issue区](https://github.com/yanqiangmiffy/Chinese-LangChain)进行反馈. <br>
+                                        KFRA（Knowledge Fusing Reference Architecutre） MPU <br>
+                                        欢迎反馈任何调优建议 <br>
                                         """)
         with gr.Column(scale=2):
             search = gr.Textbox(label='搜索结果')

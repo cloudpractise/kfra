@@ -11,6 +11,7 @@
 """
 
 import os
+import time
 
 from duckduckgo_search import ddg
 from langchain.document_loaders import UnstructuredFileLoader
@@ -22,7 +23,20 @@ class SourceService(object):
     def __init__(self, config):
         self.vector_store = None
         self.config = config
-        self.embeddings = HuggingFaceEmbeddings(model_name=self.config.embedding_model_name)
+        # by wangshi 解决海外HuggingFaceEmbeddings接口不稳定问题
+        max_retries = 3
+        retry_delay = 1  # 延迟重试的时间间隔（以秒为单位）
+        for retry in range(max_retries):
+            try:
+                self.embeddings = HuggingFaceEmbeddings(model_name=self.config.embedding_model_name)
+                break  # 如果成功加载嵌入模型，跳出循环
+            except ConnectionError as e:
+                if retry < max_retries - 1:
+                    print(f"连接错误，将在 {retry_delay} 秒后重试...")
+                    time.sleep(retry_delay)
+                else:
+                    print("重试次数已用尽，无法加载嵌入模型。")
+                    raise e
         self.docs_path = self.config.docs_path
         self.vector_store_path = self.config.vector_store_path
 
